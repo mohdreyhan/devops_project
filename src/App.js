@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  //changes to verify build in jenkins again x 6
+  //changes to verify build in jenkins again x 7
 
   return (
     <div className="App">

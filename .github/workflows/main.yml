@@ -34,10 +34,12 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
 
-      - name: Deploy Docker image
+      - name: Set Kubernetes Context
         run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
-          docker run -d -p 80:80 --name devops_project_reactapp ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
+          kubectl config set-cluster minikube --server=https://85fe-209-141-167-194.ngrok-free.app --certificate-authority=~/.minikube/ca.crt
+          kubectl config set-credentials minikube --client-certificate=~/.minikube/client.crt --client-key=~/.minikube/client.key
+          kubectl config set-context minikube --cluster=minikube --user=minikube
+          kubectl config use-context minikube
           
       - name: Deploy to Kubernetes
         run: |

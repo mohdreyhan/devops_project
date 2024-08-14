@@ -14,7 +14,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React13
+          Learn React restart container
         </a>
       </header>
     </div>

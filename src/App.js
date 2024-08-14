@@ -14,11 +14,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-<<<<<<< HEAD
           Learn React final test container
-=======
-          Learn React skipping container
->>>>>>> 3c404beb2bf0e6b37dfbe9fe76edc386bc546f1f
         </a>
       </header>
     </div>

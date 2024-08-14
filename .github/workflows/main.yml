@@ -39,8 +39,7 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
           docker run -d -p 80:80 --name devops_project_reactapp ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
           
-      # Uncomment and configure if deploying to Kubernetes
-      # - name: Deploy to Kubernetes
-      #   run: |
-      #     kubectl apply -f ./deployment.yaml --validate=false
-      #     kubectl apply -f ./service.yaml --validate=false
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f ./deployment.yaml --validate=false
+          kubectl apply -f ./service.yaml --validate=false

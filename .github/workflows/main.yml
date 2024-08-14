@@ -21,27 +21,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops_project:latest .
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
-
-      - name: Set Kubernetes Context
-        run: |
-          kubectl config set-cluster minikube --server=https://85fe-209-141-167-194.ngrok-free.app --insecure-skip-tls-verify
-          kubectl config set-credentials minikube --token=''
-          kubectl config set-context minikube --cluster=minikube --user=minikube
-          kubectl config use-context minikube
-          
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f ./deployment.yaml --validate=false
-          kubectl apply -f ./service.yaml --validate=false

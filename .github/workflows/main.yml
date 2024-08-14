@@ -32,7 +32,21 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
+
+      - name: Pull Docker image
+        run: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
+
+      - name: Check and run Docker container
+        run: |
+          # Check if the container is already running
+          if [ "$(docker ps -q -f name=devops_project_reactapp)" ]; then
+            echo "Container is already running. Restarting container..."
+            docker stop devops_project_reactapp
+            docker rm devops_project_reactapp
+          fi
+          echo "Starting a new container..."
+          docker run -d -p 80:80 --name devops_project_reactapp ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
 
       - name: Deploy to Kubernetes
         uses: azure/k8s-deploy@v4

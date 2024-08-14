@@ -49,11 +49,6 @@ jobs:
           docker run -d -p 80:80 --name devops_project_reactapp ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
 
       - name: Deploy to Kubernetes
-        uses: azure/k8s-deploy@v4
-        with:
-          namespace: default
-          manifests: |
-            ./deployment.yaml
-            ./service.yaml
-          images: |
-            ${{ secrets.DOCKER_USERNAME }}/devops_project:latest
+        run: |
+          kubectl apply -f ./deployment.yaml --validate=false
+          kubectl apply -f ./service.yaml --validate=false
